@@ -1,0 +1,13 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "gradle.plugin.com.linkedin.pygradle:pygradle-plugin:0.9.11"
+  }
+}
+
+apply plugin: "com.linkedin.python"
+# https://plugins.gradle.org/plugin/com.linkedin.python
