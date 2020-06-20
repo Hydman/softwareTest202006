@@ -13,6 +13,7 @@ install:
     - pip freeze > requirements.txt
     - pip install -r requirements.txt
 script:
+    - ls
     - python -m unittest discover
     - sonar-scanner-cli-4.3.0.2102-linux/bin/sonar-scanner \
         -Dsonar.projectKey=D0642121_finalPresentation \
