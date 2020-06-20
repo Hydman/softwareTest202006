@@ -13,4 +13,4 @@ install:
 script:
     - pwd
     - python -m unittest discover
-    - ./sonar-scanner-cli-4.3.0.2102-linux/bin/sonar-scanner
+    - /home/travis/build/Hydman/softWareTest202006/sonar-scanner-cli-4.3.0.2102-linux/bin/sonar-scanner
