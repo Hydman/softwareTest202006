@@ -7,7 +7,7 @@ jobs:
     include:
         before_install:
         - python -m pip install --upgrade pip
-        - https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.3.0.2102-linux.zip
+        - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.3.0.2102-linux.zip
         - unzip sonar-scanner-cli-4.3.0.2102-linux.zip
         - export PATH=$(pwd)/sonar-scanner-cli-4.3.0.2102-linux/bin:$PATH
 install:
