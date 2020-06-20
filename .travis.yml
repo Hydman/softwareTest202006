@@ -8,15 +8,13 @@ jobs:
         before_install:
         - python -m pip install --upgrade pip
         - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.3.0.2102-linux.zip
-        - unzip sonar-scanner-cli-4.3.0.2102-linux.zip -d /tmp
-        - export PATH=$PATH:/tmp/sonar-scanner-cli-4.3.0.2102-linux/bin
-        - env
+        - unzip sonar-scanner-cli-4.3.0.2102-linux.zip
 install:
     - pip freeze > requirements.txt
     - pip install -r requirements.txt
 script:
     - python -m unittest discover
-    - sonar-scanner \
+    - sonar-scanner-cli-4.3.0.2102-linux/bin/sonar-scanner \
         -Dsonar.projectKey=D0642121_finalPresentation \
         -Dsonar.sources=. \
         -Dsonar.host.url=http://140.134.24.239:9000 \
