@@ -1,6 +1,5 @@
 language: python
-os: linux
-dist: xenial
+os:windows
 python:
     - "3.7"
 jobs:
@@ -11,9 +10,5 @@ install:
     - pip freeze > requirements.txt
     - pip install -r requirements.txt
 script:
-    - pwd
-    - ls /home/travis/build/Hydman/softwareTest202006
-    - ls /home/travis/.travis/functions
-    - ls
+    - dir
     - python -m unittest discover
-    - /home/travis/build/Hydman/softwareTest202006/sonar-scanner-cli-4.3.0.2102-linux/bin/sonar-scanner
