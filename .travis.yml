@@ -14,4 +14,4 @@ script:
     - pwd
     - ls /home/travis/build/Hydman
     - python -m unittest discover
-    - /home/travis/build/Hydman/softWareTest202006/sonar-scanner-cli-4.3.0.2102-linux/bin/sonar-scanner.bat
+    - /home/travis/build/Hydman/softwareTest202006/sonar-scanner-cli-4.3.0.2102-linux/bin/sonar-scanner
