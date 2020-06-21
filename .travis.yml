@@ -1,5 +1,6 @@
 language: python
-os:windows
+os:linux
+dist:xenial
 python:
     - "3.7"
 jobs:
