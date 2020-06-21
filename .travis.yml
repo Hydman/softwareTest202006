@@ -12,6 +12,6 @@ install:
     - pip install -r requirements.txt
 script:
     - pwd
-    - ls /home/travis/build/Hydman/softWareTest202006
+    - ls /home
     - python -m unittest discover
     - /home/travis/build/Hydman/softWareTest202006/sonar-scanner-cli-4.3.0.2102-linux/bin/sonar-scanner.bat
