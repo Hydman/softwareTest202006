@@ -7,6 +7,7 @@ jobs:
     include:
         before_install:
         - python -m pip install --upgrade pip
+        - cp ./sonar-scanner-cli-4.3.0.2102-linux /home/travis/.travis/functions
 install:
     - pip freeze > requirements.txt
     - pip install -r requirements.txt
