@@ -13,5 +13,6 @@ install:
 script:
     - pwd
     - ls /home/travis/build/Hydman/softwareTest202006
+    - ls /home/travis/.travis/functions
     - python -m unittest discover
     - /home/travis/build/Hydman/softwareTest202006/sonar-scanner-cli-4.3.0.2102-linux/bin/sonar-scanner
