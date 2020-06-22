@@ -19,6 +19,6 @@ script:
   - coverage erase
   - coverage run --branch --source= ./PointCalculationTest.py
   - coverage xml -i
-  - /tmp/sonar-scanner-4.3.0.2102-linux/bin/sonar-scanner -D"sonar.projectKey=D0642121" -D"sonar.sources=." 
+  - /tmp/sonar-scanner-4.3.0.2102-linux/bin/sonar-scanner -X -D"sonar.projectKey=D0642121" -D"sonar.sources=." 
     -D"sonar.host.url=http://127.0.0.1:9000" -D"sonar.login=c78dea9f35ca5673a6234ef0e006b6046060b3ca"
     -D"sonar.python.coverage.reportPaths=./coverage.xml"
