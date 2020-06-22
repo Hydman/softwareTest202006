@@ -11,6 +11,7 @@ before_install:
 install:
   - pip freeze > requirements.txt
   - pip install -r requirements.txt
+  - pip install coverage
 # command to run tests
 script: 
   # - coverage run ./PointCalculationTest.py
