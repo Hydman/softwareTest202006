@@ -1,16 +1,22 @@
 language: python
-os: linux
-dist: xenial
 python:
-    - "3.7"
-jobs:
-    include:
-        before_install:
-        - python -m pip install --upgrade pip
-        - ls .
-        - cp sonar-scanner-cli-4.3.0.2102-linux /home/travis/.travis/functions
+  - "3.7"
+cache:
+  directories:
+    - $HOME/.cache/pip
+# command to install dependencies
+before_install:
+  - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.3.0.2102-linux.zip
+  - unzip sonar-scanner-cli-4.3.0.2102-linux.zip -d /tmp
 install:
-    - pip freeze > requirements.txt
-    - pip install -r requirements.txt
-script:
-    - python -m unittest discover
+  - pip install -r requirements.txt
+# command to run tests
+script: 
+  # - coverage run ./PointCalculationTest.py
+  # - coverage report -m
+  - coverage erase
+  - coverage run --branch --source= ./PointCalculationTest.py
+  - coverage xml -i
+  - /tmp/sonar-scanner-4.3.0.2102-linux/bin/sonar-scanner -D"sonar.projectKey=D0641593" -D"sonar.sources=." 
+    -D"sonar.host.url=http://140.134.24.239:9000" -D"sonar.login=b6eea023dbf8bc6f615098e40c9148cd50eb7d27"
+    -D"sonar.python.coverage.reportPaths=./coverage.xml"
