@@ -1,15 +1,13 @@
-import sys
-sys.path.insert(1, "D:/大三/大三下/軟品/昱翔op/petTrace")
 import unittest
-from PointCalculation import *
+from PointCalculation import PointCalculation
 
 class PCtest(unittest.TestCase):
 
     anchors_x = [100,100,-100,-100]
     anchors_y = [100,-100,-100,100]
     anchors_dis = [70.7,70.7,70.7,70.7]
-    PC = pointCalculation()
-    PC.set_XandY(anchors_x,anchors_y)
+    PC = PointCalculation()
+    PC.set_xandy(anchors_x,anchors_y)
 
     def test_get_cos_1(self):
         res = self.PC.get_cos(1.73,2,1) # cos(30)
@@ -41,48 +39,48 @@ class PCtest(unittest.TestCase):
             self.PC.get_group(2)
 
     def test_get_cal_array(self):
-        Dis = [141.4]*3
-        self.PC.set_dis(Dis)
+        dis = [141.4]*3
+        self.PC.set_dis(dis)
         res = self.PC.get_cal_array(self.PC.get_group(3))
         ans = [0,0]
         for i in range(len(ans)):
             self.assertAlmostEqual(res[0][i],ans[i],delta=5)
 
     def test_get_cal_array1(self):
-        Dis = [100,100,223.6]
-        self.PC.set_dis(Dis)
+        dis = [100,100,223.6]
+        self.PC.set_dis(dis)
         res = self.PC.get_cal_array(self.PC.get_group(3))
         ans = [100,0]
         for i in range(len(ans)):
             self.assertAlmostEqual(res[0][i],ans[i],delta=5)
 
     def test_get_cal_array2(self):
-        Dis = [223.6,100,100]
-        self.PC.set_dis(Dis)
+        dis = [223.6,100,100]
+        self.PC.set_dis(dis)
         res = self.PC.get_cal_array(self.PC.get_group(3))
         ans = [0,-100]
         for i in range(len(ans)):
             self.assertAlmostEqual(res[0][i],ans[i],delta=5)
 
     def test_get_cal_array3(self):
-        Dis = [316.22,316.22,141.42]
-        self.PC.set_dis(Dis)
+        dis = [316.22,316.22,141.42]
+        self.PC.set_dis(dis)
         res = self.PC.get_cal_array(self.PC.get_group(3))
         ans = [-200,0]
         for i in range(len(ans)):
             self.assertAlmostEqual(res[0][i],ans[i],delta=5)
 
     def test_get_cal_array4(self):
-        Dis = [111.8,180.26,180.26,111.8]
-        self.PC.set_dis(Dis)
+        dis = [111.8,180.26,180.26,111.8]
+        self.PC.set_dis(dis)
         res = self.PC.get_cal_array(self.PC.get_group(3))
         ans = [0,50]
         for i in range(len(ans)):
             self.assertAlmostEqual(res[0][i],ans[i],delta=5)
 
     def test_get_cal_array5(self):
-        Dis = [316.22,316.22,141.42,141.42]
-        self.PC.set_dis(Dis)
+        dis = [316.22,316.22,141.42,141.42]
+        self.PC.set_dis(dis)
         res = self.PC.get_cal_array(self.PC.get_group(4))
         ans = [[-200,0]] * 4
         for i in range(4):
@@ -90,8 +88,8 @@ class PCtest(unittest.TestCase):
                 self.assertAlmostEqual(res[i][j],ans[i][j],delta=5)
 
     def test_get_cal_array6(self):
-        Dis = [111.8,180.26,180.26,111.8]
-        self.PC.set_dis(Dis)
+        dis = [111.8,180.26,180.26,111.8]
+        self.PC.set_dis(dis)
         res = self.PC.get_cal_array(self.PC.get_group(4))
         ans = [[0,50]] * 4
         for i in range(4):
@@ -99,14 +97,14 @@ class PCtest(unittest.TestCase):
                 self.assertAlmostEqual(res[i][j],ans[i][j],delta=5)
 
     def test_get_cal_arrayfitError1(self):
-        Dis = [50,50,50]
-        self.PC.set_dis(Dis)
+        dis = [50,50,50]
+        self.PC.set_dis(dis)
         res = self.PC.get_cal_array(self.PC.get_group(3))
         self.assertEqual(res,None)
 
     def test_get_cal_arrayfitSuccess1(self):
-        Dis = [90,90,223.6]
-        self.PC.set_dis(Dis)
+        dis = [90,90,223.6]
+        self.PC.set_dis(dis)
         res = self.PC.get_cal_array(self.PC.get_group(3))
         ans = [100,0]
         for i in range(len(ans)):
@@ -147,51 +145,51 @@ class PCtest(unittest.TestCase):
             self.PC.get_close_point(points)
 
     def test_fitTriangle1(self):
-        res = self.PC.fitTriangle(160,70,70)
+        res = self.PC.fittriangle(160,70,70)
         ans = [160,80,80]
         self.assertEqual(res,ans)
     
     def test_fitTriangle2(self):
-        res = self.PC.fitTriangle(70,160,70)
+        res = self.PC.fittriangle(70,160,70)
         ans = [70,150,80]
         self.assertEqual(res,ans)
 
     def test_fitTriangle3(self):
-        res = self.PC.fitTriangle(70,70,160)
+        res = self.PC.fittriangle(70,70,160)
         ans = [70,80,150]
         self.assertEqual(res,ans)
     
     def test_fitTriangle4(self):
-        res = self.PC.fitTriangle(80,80,160)
+        res = self.PC.fittriangle(80,80,160)
         ans = [80,80,160]
         self.assertEqual(res,ans)
 
     def test_fitTriangleError1(self):
         with self.assertRaises(ValueError):
-            self.PC.fitTriangle(50,70,160)
+            self.PC.fittriangle(50,70,160)
     
     def test_fitTriangleError2(self):
         with self.assertRaises(ValueError):
-            self.PC.fitTriangle(160,50,70)
+            self.PC.fittriangle(160,50,70)
 
     def test_fitTriangleError3(self):
         with self.assertRaises(ValueError):
-            self.PC.fitTriangle(50,160,70)
+            self.PC.fittriangle(50,160,70)
 
     def test_check_Tri1(self):
-        res = self.PC.check_Tri(10,40,30)
+        res = self.PC.check_tri(10,40,30)
         self.assertTrue(res)
     
     def test_check_Tri2(self):
-        res = self.PC.check_Tri(5,15,30)
+        res = self.PC.check_tri(5,15,30)
         self.assertTrue(not res)
     
     def test_check_Tri3(self):
-        res = self.PC.check_Tri(60,10,30)
+        res = self.PC.check_tri(60,10,30)
         self.assertTrue(not res)
 
     def test_check_Tri4(self):
-        res = self.PC.check_Tri(10,50,30)
+        res = self.PC.check_tri(10,50,30)
         self.assertTrue(not res)
     
 # unittest.main()  # py .\PointCalculationTest.py -v         -->      use -v to get more information

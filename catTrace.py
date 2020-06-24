@@ -1,17 +1,19 @@
-from PointCalculation import pointCalculation
+from PointCalculation import PointCalculation
 import turtle as tl
 import threading
 from catEmulator import anchor_DisQ
 import pygame
 
-class catTraceT(threading.Thread):
-    def __init__(self,name = "catTrace",flag = True,anchor_x = [400,400,200,200],anchor_y = [400,200,200,400]):
+class CatTraceT(threading.Thread):
+    def __init__(self,name = "catTrace",flag = True,anchor_x = None,anchor_y = None):
         threading.Thread.__init__(self)
+        anchor_x_input = [400,400,200,200]
+        anchor_y_input = [400,200,200,400]
         self.name = name
         self.flag = flag
-        self.anchor_x = anchor_x
-        self.anchor_y = anchor_y
-        self.pc = pointCalculation(self.anchor_x,self.anchor_y)
+        self.anchor_x = anchor_x_input
+        self.anchor_y = anchor_y_input
+        self.pc = PointCalculation(self.anchor_x,self.anchor_y)
         self.anchorsGroup = self.pc.get_group(len(self.anchor_x))
         self.colors = ["blue","black","green","purple"]
 
@@ -48,12 +50,12 @@ class catTraceT(threading.Thread):
             if points is None:
                 continue
             try:
-                finalPoint = self.pc.get_close_point(points)
+                final_point = self.pc.get_close_point(points)
             except ValueError as e:
                 print(repr(e))
                 continue
             tl.color("red")
-            tl.goto(finalPoint[0],-1 * finalPoint[1])
+            tl.goto(final_point[0],-1 * final_point[1])
             tl.stamp()
         
         # ---------------------------   LocateByCode   ------------------------- 

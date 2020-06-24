@@ -12,15 +12,17 @@ import math
 
 anchor_DisQ = queue.Queue()
 
-class catEmulatorT(threading.Thread):
-    def __init__(self,name = "catEmulator",flag = True,anchor_x = [400,400,200,200],anchor_y = [400,200,200,400],X = 300,Y = 300):
+class CatEmulatorT(threading.Thread):
+    def __init__(self,name = "catEmulator",flag = True,anchor_x = None,anchor_y = None,x = 300,y = 300):
         threading.Thread.__init__(self)
+        anchor_x_input = [400,400,200,200]
+        anchor_y_input = [400,200,200,400]
         self.name = name
         self.flag = flag
-        self.anchor_x = anchor_x
-        self.anchor_y = anchor_y
-        self.X = X
-        self.Y = Y
+        self.anchor_x = anchor_x_input
+        self.anchor_y = anchor_y_input
+        self.x = x
+        self.y = y
         self.height = 64*8
         self.width = 64*10
 
@@ -33,7 +35,7 @@ class catEmulatorT(threading.Thread):
         pygame.display.set_caption('Pygame Cat Emulator')
         pygame.mouse.set_visible(0)
 
-        keyPressed = [False,False,False,False]
+        key_pressed = [False,False,False,False]
 
         cat = pygame.image.load("cat.jpg")
         marker = pygame.image.load("marker.jpg")
@@ -43,7 +45,7 @@ class catEmulatorT(threading.Thread):
             screen.fill((255,255,255)) # 清空畫面
             for i in range(4):
                 screen.blit(marker,(self.anchor_x[i],self.anchor_y[i]))
-            screen.blit(cat,(self.X,self.Y)) # 顯示貓
+            screen.blit(cat,(self.x,self.y)) # 顯示貓
             pygame.display.flip() #更新畫面
 
             for event in pygame.event.get():
@@ -52,49 +54,45 @@ class catEmulatorT(threading.Thread):
                     pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_UP:
-                        keyPressed[0] = True
+                        key_pressed[0] = True
                     elif event.key == pygame.K_DOWN:
-                        keyPressed[1] = True
+                        key_pressed[1] = True
                     elif event.key == pygame.K_LEFT:
-                        keyPressed[2] = True
+                        key_pressed[2] = True
                     elif event.key == pygame.K_RIGHT:
-                        keyPressed[3] = True
+                        key_pressed[3] = True
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_UP:
-                        keyPressed[0] = False
+                        key_pressed[0] = False
                     elif event.key == pygame.K_DOWN:
-                        keyPressed[1] = False
+                        key_pressed[1] = False
                     elif event.key == pygame.K_LEFT:
-                        keyPressed[2] = False
+                        key_pressed[2] = False
                     elif event.key == pygame.K_RIGHT:
-                        keyPressed[3] = False
+                        key_pressed[3] = False
 
-            self.move(keyPressed)
-            anchor_DisQ.put(self.cal_dis(self.X,self.Y))
+            self.move(key_pressed)
+            anchor_DisQ.put(self.cal_dis(self.x,self.y))
             # print(self.cal_dis(self.X,self.Y))
             time.sleep(0.1)
 
         pygame.quit()
 
-    def move(self,keyPressed:list):
-        if len(keyPressed) != 4:
-            raise TypeError("Error length of keyPressed",keyPressed)
-        for i in keyPressed:
+    def move(self,key_pressed:list):
+        if len(key_pressed) != 4:
+            raise TypeError("Error length of keyPressed",key_pressed)
+        for i in key_pressed:
             if type(i) is not bool:
-                raise TypeError("keyPressed is not a boolean list",keyPressed)
-        if keyPressed[0]:
-            if self.Y > 0:
-                self.Y -= 15
-        elif keyPressed[1]:
-            if self.Y < self.height - 64:
-                self.Y += 15
-        elif keyPressed[2]:
-            if self.X > 0:
-                self.X -= 15
-        elif keyPressed[3]:
-            if self.X < self.width - 64:
-                self.X += 15
+                raise TypeError("keyPressed is not a boolean list",key_pressed)
+        if key_pressed[0] and self.y > 0:
+            self.y -= 15
+        elif key_pressed[1] and self.y < self.height - 64:
+            self.y += 15
+        elif key_pressed[2] and self.x > 0:
+            self.x -= 15
+        elif key_pressed[3] and self.x < self.width - 64:
+            self.x += 15
 
     def get_dis(self,x_off,y_off):
         return round(math.sqrt(math.pow(x_off,2) + math.pow(y_off,2)),2)
